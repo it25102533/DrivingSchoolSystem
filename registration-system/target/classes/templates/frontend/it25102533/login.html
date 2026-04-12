@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0c1222"/>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <title>Student Login — RoadSync</title>
+  <style>
+    .rs-student-login { min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+    .login-card {
+      background: var(--rs-card);
+      border: 1px solid var(--rs-border);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-card h2 { text-align: center; color: var(--rs-text); margin: 0 0 0.5rem; font-weight: 600; font-size: 1.35rem; }
+    .login-card .hint { text-align: center; color: var(--rs-muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+    .login-card input {
+      width: 100%; padding: 0.75rem 1rem; margin: 0.5rem 0; border: 1px solid var(--rs-border);
+      border-radius: 10px; box-sizing: border-box; background: rgba(0, 0, 0, 0.25); color: var(--rs-text); font-size: 1rem;
+    }
+    .btn-login {
+      width: 100%; padding: 0.75rem; margin-top: 0.75rem;
+      background: linear-gradient(135deg, var(--rs-accent) 0%, var(--rs-teal) 100%);
+      color: #fff; border: none; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600;
+    }
+    .btn-login:hover { filter: brightness(1.06); }
+    .error { color: #f87171; font-size: 0.9rem; text-align: center; margin-bottom: 0.75rem; }
+    .footer-link { text-align: center; margin-top: 1.25rem; }
+    .footer-link a { color: var(--rs-accent); text-decoration: none; font-size: 0.9rem; }
+  </style>
+</head>
+<body class="rs-landing">
+  <!-- Self-contained header (no Thymeleaf fragments — avoids resolution issues) -->
+  <header class="rs-header">
+    <div class="rs-header-inner">
+      <a class="rs-brand" th:href="@{/}">
+        <svg class="rs-brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="rsGradLogin" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#3b82f6"/><stop offset="1" stop-color="#14b8a6"/>
+            </linearGradient>
+          </defs>
+          <rect width="48" height="48" rx="12" fill="url(#rsGradLogin)" opacity="0.15"/>
+          <path d="M14 34c0-6 4-10 10-10s10 4 10 10" stroke="url(#rsGradLogin)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M18 28c2-4 5-6 10-6s8 2 10 6" stroke="url(#rsGradLogin)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <circle cx="24" cy="16" r="4" fill="url(#rsGradLogin)"/>
+          <path d="M32 12l4 4-4 4" stroke="#e8ecf4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="rs-brand-text">
+          <span class="rs-brand-name">RoadSync</span>
+          <span class="rs-brand-tag">Driving School Platform</span>
+        </div>
+      </a>
+      <nav class="rs-nav">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About Us</a>
+        <a th:href="@{/contact}">Contact Us</a>
+      </nav>
+      <div class="rs-actions">
+        <div class="rs-dropdown" id="loginDropdown">
+          <div class="rs-dropdown-backdrop" id="loginBackdrop"></div>
+          <button type="button" class="rs-btn rs-btn-ghost" id="loginBtn" aria-expanded="false" aria-haspopup="true">Login</button>
+          <div class="rs-dropdown-panel" role="menu">
+            <a class="rs-dropdown-item" th:href="@{/login/professional}" role="menuitem">
+              Professional login
+              <small>Staff &amp; instructors</small>
+            </a>
+            <a class="rs-dropdown-item" th:href="@{/login}" role="menuitem">
+              Student login
+              <small>Access your lessons &amp; progress</small>
+            </a>
+          </div>
+        </div>
+        <a th:href="@{/signup}" class="rs-btn rs-btn-primary">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="rs-main rs-student-login">
+    <div class="login-card" style="max-width:440px;">
+      <h2>Student login</h2>
+      <p class="hint">Use the email and password from your account. New students can create an account below.</p>
+      <p th:if="${requiredLogin}" class="error">Please sign in to continue.</p>
+      <form th:action="@{/login}" method="post">
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <input type="email" name="email" placeholder="Email" autocomplete="username" required/>
+        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required/>
+        <button type="submit" class="btn-login">Sign in</button>
+      </form>
+      <details style="margin-top:1.25rem;color:var(--rs-muted);font-size:0.88rem;">
+        <summary style="cursor:pointer;color:var(--rs-accent);">Legacy login (name + student ID)</summary>
+        <form th:action="@{/login}" method="post" style="margin-top:0.75rem;">
+          <input type="text" name="name" placeholder="Full name" autocomplete="name" required/>
+          <input type="number" name="studentId" placeholder="Student ID" required/>
+          <button type="submit" class="btn-login" style="margin-top:0.5rem;">Sign in with ID</button>
+        </form>
+      </details>
+      <div class="footer-link">
+        <a th:href="@{/signup}">New student? Create an account</a>
+      </div>
+      <p style="text-align:center;margin-top:1rem;font-size:0.85rem;">
+        <a th:href="@{/login/professional}" style="color:var(--rs-muted);">Professional login</a>
+        &nbsp;·&nbsp;
+        <a th:href="@{/}" style="color:var(--rs-muted);">Home</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="rs-footer">
+    <div class="rs-footer-inner">
+      <div class="rs-footer-brand">
+        <span class="rs-brand-name">RoadSync</span>
+        <p style="color:var(--rs-muted);font-size:0.9rem;margin:0.5rem 0 0;max-width:280px;">
+          Modern scheduling and training management for driving schools.
+        </p>
+      </div>
+      <div class="rs-footer-col">
+        <h4>Explore</h4>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About Us</a>
+        <a th:href="@{/contact}">Contact Us</a>
+      </div>
+      <div class="rs-footer-col">
+        <h4>Account</h4>
+        <a th:href="@{/login}">Student login</a>
+        <a th:href="@{/login/options}">Login menu</a>
+        <a th:href="@{/signup}">Student sign up</a>
+      </div>
+    </div>
+    <div class="rs-footer-bottom">
+      © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> RoadSync. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var wrap = document.getElementById("loginDropdown");
+      var btn = document.getElementById("loginBtn");
+      var backdrop = document.getElementById("loginBackdrop");
+      if (!wrap || !btn) return;
+      function close() {
+        wrap.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+      function toggle() {
+        wrap.classList.toggle("open");
+        btn.setAttribute("aria-expanded", wrap.classList.contains("open") ? "true" : "false");
+      }
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggle();
+      });
+      if (backdrop) backdrop.addEventListener("click", close);
+      document.addEventListener("click", close);
+      wrap.addEventListener("click", function (e) { e.stopPropagation(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") close();
+      });
+    })();
+  </script>
+</body>
+</html>

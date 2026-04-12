@@ -1,0 +1,20 @@
+Driving School — backend / frontend per IT number
+
+BACKEND (Java)
+  Package base: com.drivingschool.system.backend.<id>
+  Path: src/main/java/com/drivingschool/system/backend/<id>/
+  Shared: com.drivingschool.system.backend.shared — Person
+
+FRONTEND (Thymeleaf views + static assets)
+  Views:  classpath:/templates/frontend/<id>/
+  Path:  src/main/resources/templates/frontend/<id>/
+  Static: classpath:/frontend/<id>/  (CSS/JS/images)
+  Path:  src/main/resources/static/frontend/<id>/
+
+Subsystem IDs
+  1. IT25102533 — Students (register, login, list, edit)
+  2. IT25102534 — Instructors
+  3. IT25102535 — Vehicles
+  4. IT25102536 — Lessons / scheduling
+  5. IT25102537 — Packages & payments
+  6. IT25102543 — Progress & feedback

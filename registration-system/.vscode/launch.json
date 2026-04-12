@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "DrivingSchoolSystemApplication",
+      "request": "launch",
+      "mainClass": "com.drivingschool.system.DrivingSchoolSystemApplication",
+      "projectName": "registration-system"
+    }
+  ]
+}

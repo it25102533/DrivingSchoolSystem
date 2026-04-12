@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Progress &amp; reports — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('progress')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Progress &amp; instructor notes</h1>
+    <p style="color:var(--rs-muted);font-size:0.9rem;margin-bottom:1rem;">Feedback from instructors after lessons — topics covered and areas to improve.</p>
+    <div th:each="note : ${notes}" style="margin-bottom:1.25rem;padding:1rem;border:1px solid var(--rs-border);border-radius:12px;background:var(--rs-card);">
+      <p style="margin:0 0 0.5rem;font-size:0.8rem;color:var(--rs-muted);">
+        <span th:if="${note.date != null}" th:text="${#temporals.format(note.date, 'dd MMM yyyy HH:mm')}">Date</span>
+      </p>
+      <p th:if="${note.lessonTopic != null}" style="margin:0 0 0.35rem;"><strong>Topic:</strong> <span th:text="${note.lessonTopic}">—</span></p>
+      <p th:if="${note.instructorNote != null}" style="margin:0;color:var(--rs-text);" th:text="${note.instructorNote}">Note</p>
+    </div>
+    <p th:if="${#lists.isEmpty(notes)}" style="color:var(--rs-muted);">No progress notes yet.</p>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

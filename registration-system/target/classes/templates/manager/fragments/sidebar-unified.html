@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--
+  Single sidebar fragment in its own file so Thymeleaf never merges multiple <aside> fragments from one template.
+  Use: th:replace="~{manager/fragments/sidebar-unified :: sidebar('students', ${managerRole})}"
+-->
+<body>
+<aside th:fragment="sidebar (activeNav, roleName)" class="ad-sidebar" th:attr="aria-label=${roleName == 'FLEET_MANAGER'} ? 'Fleet menu' : 'Staff menu'">
+  <div class="ad-sidebar-brand">
+    <a th:href="${roleName == 'FLEET_MANAGER'} ? @{/manager/fleet/dashboard} : @{/manager/dashboard}">
+      <span class="ad-logo">&#128663;</span>
+      <div>
+        <div class="ad-title">RoadSync</div>
+        <div class="ad-sub" th:text="${roleName == 'FLEET_MANAGER'} ? 'Fleet' : 'Staff console'">Staff console</div>
+      </div>
+    </a>
+  </div>
+  <nav class="ad-nav" aria-label="Primary">
+    <span class="ad-nav-label">Menu</span>
+    <a th:href="${roleName == 'FLEET_MANAGER'} ? @{/manager/fleet/dashboard} : @{/manager/dashboard}"
+       th:classappend="${activeNav == 'dashboard'} ? ' ad-nav-active'">Dashboard</a>
+    <th:block th:if="${roleName == 'FLEET_MANAGER'}">
+      <a th:href="@{/vehicles}" th:classappend="${activeNav == 'vehicles'} ? ' ad-nav-active'">Fleet directory</a>
+      <a th:href="@{/addVehicle}" th:classappend="${activeNav == 'add-vehicle'} ? ' ad-nav-active'">Add vehicle</a>
+      <a th:href="@{/lessons}" th:classappend="${activeNav == 'lessons'} ? ' ad-nav-active'">Lesson schedule</a>
+    </th:block>
+    <th:block th:if="${roleName != 'FLEET_MANAGER'}">
+      <a th:href="@{/manager/admin/students}" th:classappend="${activeNav == 'students'} ? ' ad-nav-active'">Student directory</a>
+      <a th:href="@{/manager/admin/instructors}" th:classappend="${activeNav == 'instructors'} ? ' ad-nav-active'">Instructors</a>
+      <a th:href="@{/manager/admin/lessons}" th:classappend="${activeNav == 'lessons'} ? ' ad-nav-active'">Bookings</a>
+      <a th:if="${roleName == 'ADMIN'}" th:href="@{/manager/admin/packages}" th:classappend="${activeNav == 'packages'} ? ' ad-nav-active'">Packages</a>
+      <a th:if="${roleName == 'ADMIN'}" th:href="@{/manager/admin/payments}" th:classappend="${activeNav == 'payments'} ? ' ad-nav-active'">Payments</a>
+      <a th:if="${roleName == 'ADMIN'}" th:href="@{/manager/feedback}" th:classappend="${activeNav == 'feedback'} ? ' ad-nav-active'">Feedback</a>
+      <a th:if="${roleName == 'ADMIN'}" th:href="@{/manager/admin/reports}" th:classappend="${activeNav == 'reports'} ? ' ad-nav-active'">Reports</a>
+    </th:block>
+  </nav>
+  <div class="ad-sidebar-foot">
+    <a th:href="@{/}">View public site</a>
+    <a th:href="@{/manager/logout}" class="ad-signout">Sign out</a>
+  </div>
+</aside>
+</body>
+</html>

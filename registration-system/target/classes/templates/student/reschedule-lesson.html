@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Reschedule lesson — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('lessons')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Reschedule lesson</h1>
+    <p th:if="${error}" class="sp-alert err" th:text="${error}">Error</p>
+    <form th:action="@{/student/lesson/reschedule}" method="post" class="sp-form">
+      <input type="hidden" name="lessonId" th:value="${lesson.id}"/>
+      <label for="instructorId">Instructor</label>
+      <select id="instructorId" name="instructorId" required>
+        <option th:each="i : ${allInstructors}" th:value="${i.id}"
+                th:selected="${lesson.instructor != null and lesson.instructor.id == i.id}"
+                th:text="${i.name}">Instructor</option>
+      </select>
+      <label for="lessonTime">New date &amp; time</label>
+      <input id="lessonTime" name="lessonTime" type="datetime-local" required
+             th:value="${lesson.lessonTime != null ? #temporals.format(lesson.lessonTime, 'yyyy-MM-dd''T''HH:mm') : ''}"
+             th:attr="min=${minTime}" step="900"/>
+      <button type="submit" class="sp-btn" style="margin-top:1rem;">Save new time</button>
+    </form>
+    <p style="margin-top:1rem;"><a th:href="@{/student/my-lessons}" style="color:var(--rs-muted);">← Back to my lessons</a></p>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

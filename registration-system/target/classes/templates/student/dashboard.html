@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Student dashboard — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('dash')}"></nav>
+    <div class="student-hero">
+      <h1>Hi, <span th:text="${student.name}">Student</span></h1>
+      <p>Welcome to your RoadSync student dashboard. Upcoming lessons: <strong th:text="${upcomingCount}">0</strong></p>
+    </div>
+    <div class="student-grid">
+      <a class="student-card" th:href="@{/student/profile}">
+        <h3>Profile</h3>
+        <p>View and update your contact details and change your password.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/book-lesson}">
+        <h3>Book a lesson</h3>
+        <p>Choose an instructor, time, and vehicle preference. Availability is checked before booking.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/my-lessons}">
+        <h3>My lessons</h3>
+        <p>See upcoming sessions, reschedule, or cancel bookings.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/packages}">
+        <h3>Packages &amp; purchase</h3>
+        <p>Browse lesson bundles and complete payment.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/payment-history}">
+        <h3>Payment history</h3>
+        <p>Review past transactions and amounts paid.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/progress}">
+        <h3>Progress</h3>
+        <p>Read instructor notes and skill development feedback.</p>
+      </a>
+      <a class="student-card" th:href="@{/student/feedback}">
+        <h3>Submit feedback</h3>
+        <p>Rate instructors or lessons and leave comments.</p>
+      </a>
+    </div>
+    <p style="margin-top:2rem;"><a th:href="@{/}" style="color:var(--rs-muted);">← RoadSync home</a></p>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>My lessons — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('lessons')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">My lessons</h1>
+    <p th:if="${param.booked}" class="sp-alert ok">Lesson booked successfully.</p>
+    <p th:if="${param.rescheduled}" class="sp-alert ok">Lesson rescheduled.</p>
+    <p th:if="${param.cancelled}" class="sp-alert ok">Lesson cancelled.</p>
+    <p th:if="${error}" class="sp-alert err" th:text="${error}">Error</p>
+    <table class="sp-table" th:if="${not #lists.isEmpty(lessons)}">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Instructor</th>
+          <th>Vehicle pref.</th>
+          <th>Vehicle</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="l : ${lessons}">
+          <td th:text="${l.lessonTime != null ? #temporals.format(l.lessonTime, 'dd MMM yyyy HH:mm') : '—'}">—</td>
+          <td th:text="${l.instructor != null ? l.instructor.name : '—'}">—</td>
+          <td th:text="${l.vehicleType != null ? l.vehicleType : '—'}">—</td>
+          <td th:text="${l.vehicle != null ? l.vehicle.model + ' ' + l.vehicle.plateNumber : '—'}">—</td>
+          <td th:text="${l.status != null ? l.status : 'Scheduled'}">—</td>
+          <td>
+            <th:block th:if="${l.lessonTime != null and l.lessonTime.isAfter(now) and l.status != 'Cancelled'}">
+              <a class="sp-btn sp-btn-sm sp-btn-ghost" th:href="@{/student/lesson/reschedule(id=${l.id})}">Reschedule</a>
+              <form th:action="@{/student/lesson/cancel}" method="post" style="display:inline;margin-left:0.35rem;">
+                <input type="hidden" name="id" th:value="${l.id}"/>
+                <button type="submit" class="sp-btn sp-btn-sm" style="background:rgba(248,113,113,0.25);color:#fca5a5;" onclick="return confirm('Cancel this lesson?');">Cancel</button>
+              </form>
+            </th:block>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(lessons)}" style="color:var(--rs-muted);">No lessons yet. <a th:href="@{/student/book-lesson}" style="color:var(--rs-accent);">Book one</a>.</p>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

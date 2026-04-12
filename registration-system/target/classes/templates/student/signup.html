@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Student sign up — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+  <style>
+    .signup-wrap { max-width: 480px; margin: 2rem auto; padding: 0 1rem 3rem; }
+    .signup-card { background: var(--rs-card); border: 1px solid var(--rs-border); border-radius: 16px; padding: 2rem; }
+    .signup-card h1 { margin: 0 0 0.5rem; font-size: 1.35rem; }
+    .signup-card .sub { color: var(--rs-muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+  </style>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main signup-wrap">
+    <div class="signup-card">
+      <h1>Create your student account</h1>
+      <p class="sub">Your details are stored securely. You’ll use your email and password to sign in.</p>
+      <p th:if="${error}" class="sp-alert err" th:text="${error}">Error</p>
+      <form th:action="@{/signup}" method="post" class="sp-form">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" required/>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required autocomplete="email"/>
+        <label for="password">Password (min 6 characters)</label>
+        <input id="password" name="password" type="password" required minlength="6" autocomplete="new-password"/>
+        <label for="confirmPassword">Confirm password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required minlength="6" autocomplete="new-password"/>
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="text" autocomplete="tel"/>
+        <label for="age">Age</label>
+        <input id="age" name="age" type="number" min="16" max="99" value="18" required/>
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="2"></textarea>
+        <label for="licenseType">License type goal</label>
+        <input id="licenseType" name="licenseType" type="text" placeholder="e.g. B"/>
+        <label for="studentType">Student type</label>
+        <select id="studentType" name="studentType">
+          <option value="Individual">Individual</option>
+          <option value="Corporate">Corporate</option>
+        </select>
+        <button type="submit" class="sp-btn" style="margin-top:1.25rem;">Create account</button>
+      </form>
+      <p style="margin-top:1.25rem;text-align:center;font-size:0.9rem;">
+        Already registered? <a th:href="@{/login}" style="color:var(--rs-accent);">Sign in</a>
+      </p>
+    </div>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102543/subsystem.css}">
+    <title>Progress Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1a1a1a; color: white; margin: 0; }
+        .container { width: 80%; margin: 30px auto; }
+        .report-header { background: #333; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
+        .note-card { background: #242424; padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #444; }
+        .date { color: #888; font-size: 0.9em; }
+        .topic { color: #ffc107; font-weight: bold; font-size: 1.1em; }
+        .content { margin-top: 10px; line-height: 1.5; color: #ddd; }
+    </style>
+</head>
+<body>
+<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+
+    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+
+    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
+    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+</nav>
+
+<div class="container">
+    <div class="report-header">
+        <h2 th:text="'Performance Record: ' + ${student.name}">Student Name</h2>
+        <p th:text="'License Category: ' + ${student.licenseType}"></p>
+    </div>
+
+    <div th:if="${#lists.isEmpty(notes)}">
+        <p style="text-align: center; color: #888; padding: 50px;">No progress history found for this student.</p>
+    </div>
+
+    <div class="note-card" th:each="note : ${notes}">
+        <div style="display: flex; justify-content: space-between;">
+            <span class="topic" th:text="${note.lessonTopic}">Topic</span>
+            <span class="date" th:text="${#temporals.format(note.date, 'dd MMMM yyyy HH:mm')}">Date</span>
+        </div>
+        <div class="content" th:text="${note.instructorNote}">Note content...</div>
+    </div>
+
+    <a href="/students" style="color: #ffc107; text-decoration: none; font-weight: bold;">&larr; Back to Student Directory</a>
+</div>
+</body>
+</html>

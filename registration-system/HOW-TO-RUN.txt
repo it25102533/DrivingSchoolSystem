@@ -1,0 +1,27 @@
+================================================================================
+  ROADSYNC - SIMPLE INSTRUCTIONS (read this once)
+================================================================================
+
+1) START THE APP (easiest - no IntelliJ needed)
+   - Double-click:  run-app.bat
+   - Wait until you see "Started DrivingSchoolSystemApplication" in the black window.
+   - Open your browser:  http://localhost:8080
+
+2) STOP THE APP
+   - Click the black window and press:  Ctrl + C
+
+3) IF YOU USE INTELLIJ AND THE GREEN RUN BUTTON IS GREY
+   - Open THIS file (source code):
+       src\main\java\com\drivingschool\system\DrivingSchoolSystemApplication.java
+   - Do NOT open any file inside the "target" folder (those are compiled copies).
+   - At the top toolbar, choose run configuration:
+       DrivingSchoolSystemApplication
+     (not "Current File")
+   - Click the green Run triangle.
+
+4) OPEN THE CORRECT PROJECT FOLDER IN INTELLIJ
+   - File -> Open -> select the folder that contains pom.xml:
+       registration-system
+     (the same folder where run-app.bat lives)
+
+================================================================================

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>RoadSync — Driving School Management</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('home')}"></header>
+
+  <main class="rs-main">
+    <section class="rs-hero">
+      <div class="rs-hero-inner">
+        <h1>Train smarter. Drive safer. <span>Stay in sync.</span></h1>
+        <p>
+          RoadSync connects students, instructors, and your fleet in one professional platform—
+          from first lesson to test day.
+        </p>
+        <div class="rs-hero-cta">
+          <a th:href="@{/signup}" class="rs-btn rs-btn-primary">Get started</a>
+          <a th:href="@{/about}" class="rs-btn rs-btn-ghost">Learn more</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-section">
+      <h2>Why RoadSync</h2>
+      <p>Everything your driving school needs to schedule lessons, track progress, and manage operations with clarity.</p>
+      <div class="rs-grid">
+        <div class="rs-feature-card">
+          <h3>Unified scheduling</h3>
+          <p>Book and manage lessons with real-time visibility for students and instructors.</p>
+        </div>
+        <div class="rs-feature-card">
+          <h3>Progress tracking</h3>
+          <p>Document skills and feedback so every student knows what to improve next.</p>
+        </div>
+        <div class="rs-feature-card">
+          <h3>Professional tools</h3>
+          <p>Packages, payments, and fleet records—structured for serious training businesses.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* Student portal — used with roadsync.css */
+.student-shell { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.student-nav {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem;
+  padding: 0.75rem 1rem; background: var(--rs-card); border: 1px solid var(--rs-border); border-radius: 12px;
+}
+.student-nav a {
+  padding: 0.45rem 0.75rem; border-radius: 8px; font-size: 0.88rem; color: var(--rs-muted); text-decoration: none;
+}
+.student-nav a:hover, .student-nav a.active { color: var(--rs-accent); background: rgba(59, 130, 246, 0.12); }
+.student-hero {
+  margin-bottom: 2rem; padding: 1.5rem 1.25rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(20, 184, 166, 0.1) 100%);
+  border: 1px solid var(--rs-border); border-radius: 14px;
+}
+.student-hero h1 { margin: 0 0 0.35rem; font-size: 1.5rem; }
+.student-hero p { margin: 0; color: var(--rs-muted); font-size: 0.95rem; }
+.student-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;
+}
+.student-card {
+  background: var(--rs-card); border: 1px solid var(--rs-border); border-radius: 12px;
+  padding: 1.15rem 1.25rem; text-decoration: none; color: var(--rs-text);
+  display: block; transition: border-color 0.15s;
+}
+.student-card:hover { border-color: rgba(59, 130, 246, 0.45); }
+.student-card h3 { margin: 0 0 0.35rem; font-size: 1rem; color: var(--rs-teal); }
+.student-card p { margin: 0; font-size: 0.85rem; color: var(--rs-muted); line-height: 1.45; }
+.sp-form label { display: block; font-size: 0.8rem; color: var(--rs-muted); margin: 0.75rem 0 0.35rem; }
+.sp-form input, .sp-form select, .sp-form textarea {
+  width: 100%; max-width: 420px; padding: 0.6rem 0.75rem; border-radius: 10px;
+  border: 1px solid var(--rs-border); background: rgba(0,0,0,0.25); color: var(--rs-text); font-size: 0.95rem;
+  box-sizing: border-box;
+}
+.sp-form textarea { min-height: 90px; }
+.sp-alert { padding: 0.65rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: 0.9rem; }
+.sp-alert.ok { background: rgba(94, 234, 212, 0.12); color: #5eead4; border: 1px solid rgba(94, 234, 212, 0.35); }
+.sp-alert.err { background: rgba(248, 113, 113, 0.12); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.35); }
+.sp-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.75rem; }
+.sp-table th, .sp-table td { border: 1px solid var(--rs-border); padding: 0.5rem 0.65rem; text-align: left; }
+.sp-table th { color: var(--rs-muted); font-weight: 600; }
+.sp-btn {
+  display: inline-block; padding: 0.5rem 1rem; border-radius: 10px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, var(--rs-accent) 0%, var(--rs-teal) 100%); color: #fff; font-weight: 600; font-size: 0.9rem;
+}
+.sp-btn-ghost { background: transparent; border: 1px solid var(--rs-border); color: var(--rs-text); }
+.sp-btn-sm { padding: 0.35rem 0.65rem; font-size: 0.8rem; }

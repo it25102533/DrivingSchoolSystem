@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Book a lesson — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('book')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Book a lesson</h1>
+    <p style="color:var(--rs-muted);font-size:0.9rem;max-width:560px;margin-bottom:1rem;">
+      Choose an instructor and time. The system checks that the slot is free before saving.
+      Pick a vehicle type preference; you may optionally assign a specific vehicle if listed.
+    </p>
+    <p th:if="${error}" class="sp-alert err" th:text="${error}">Error</p>
+    <form th:action="@{/student/book-lesson}" method="post" class="sp-form">
+      <label for="instructorId">Instructor</label>
+      <select id="instructorId" name="instructorId" required>
+        <option value="">— Select —</option>
+        <option th:each="i : ${allInstructors}" th:value="${i.id}" th:text="${i.name}">Instructor</option>
+      </select>
+      <label for="lessonTime">Date &amp; time</label>
+      <input id="lessonTime" name="lessonTime" type="datetime-local" required th:attr="min=${minTime}" step="900"/>
+      <label for="vehicleType">Vehicle / transmission preference</label>
+      <select id="vehicleType" name="vehicleType" required>
+        <option value="Any">Any</option>
+        <option value="Manual">Manual</option>
+        <option value="Automatic">Automatic</option>
+      </select>
+      <label for="vehicleId">Vehicle (optional)</label>
+      <select id="vehicleId" name="vehicleId">
+        <option value="">— None —</option>
+        <option th:each="v : ${allVehicles}" th:value="${v.id}" th:text="${v.model + ' — ' + v.plateNumber + (v.type != null ? ' (' + v.type + ')' : '')}">Vehicle</option>
+      </select>
+      <button type="submit" class="sp-btn" style="margin-top:1rem;">Confirm booking</button>
+    </form>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102535/subsystem.css}">
+    <title>Add Vehicle</title>
+    <style>
+        body { font-family: Arial; background-color: #1a1a1a; color: white; margin: 0; }
+        .container { padding: 40px; max-width: 500px; margin: auto; background: #242424; margin-top: 50px; border-radius: 8px; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #333; color: white; border: 1px solid #444; }
+        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+
+    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+
+    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
+    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+</nav>
+
+<div class="container">
+    <h2>Add New Vehicle</h2>
+    <form th:action="@{/saveVehicle}" th:object="${vehicle}" method="post">
+        <input type="text" th:field="*{model}" placeholder="Vehicle Model (e.g. Honda Civic)" required>
+        <input type="text" th:field="*{plateNumber}" placeholder="Plate Number" required>
+        <select th:field="*{type}">
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+        </select>
+        <button type="submit">Save Vehicle</button>
+    </form>
+</div>
+</body>
+</html>

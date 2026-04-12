@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102533/subsystem.css}">
+    <title>Edit Student</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; }
+        .container { padding: 20px; max-width: 400px; margin: auto; }
+        input { display: block; margin-bottom: 15px; width: 100%; padding: 10px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; width: 100%; }
+        nav { background-color: #333; padding: 15px; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+
+    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+
+    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
+    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+</nav>
+
+<div class="container">
+    <h2>Edit Student Information</h2>
+    <form th:action="@{/updateStudent}" th:object="${student}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Full Name:</label>
+        <input type="text" th:field="*{name}" required>
+
+        <label>Age:</label>
+        <input type="number" th:field="*{age}" required>
+
+        <label>License Type:</label>
+        <input type="text" th:field="*{licenseType}" required>
+
+        <label>Phone:</label>
+        <input type="text" th:field="*{phone}" required>
+
+        <button type="submit">Update Student</button>
+    </form>
+</div>
+</body>
+</html>

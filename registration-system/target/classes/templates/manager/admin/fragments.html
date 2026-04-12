@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <nav th:fragment="admin-nav(active, isAdmin)" class="ma-nav" aria-label="Admin navigation">
+    <a th:href="@{/manager/dashboard}">Dashboard</a>
+    <a th:href="@{/manager/admin/students}" th:classappend="${active == 'students'} ? ' ma-active'">Directory</a>
+    <a th:href="@{/manager/admin/instructors}" th:classappend="${active == 'instructors'} ? ' ma-active'">Instructors</a>
+    <a th:href="@{/manager/admin/lessons}" th:classappend="${active == 'lessons'} ? ' ma-active'">Bookings</a>
+    <a th:if="${isAdmin}" th:href="@{/manager/admin/packages}" th:classappend="${active == 'packages'} ? ' ma-active'">Packages</a>
+    <a th:if="${isAdmin}" th:href="@{/manager/admin/payments}" th:classappend="${active == 'payments'} ? ' ma-active'">Payments</a>
+    <a th:if="${isAdmin}" th:href="@{/manager/feedback}" th:classappend="${active == 'feedback'} ? ' ma-active'">Feedback</a>
+    <a th:if="${isAdmin}" th:href="@{/manager/admin/reports}" th:classappend="${active == 'reports'} ? ' ma-active'">Reports</a>
+  </nav>
+</body>
+</html>

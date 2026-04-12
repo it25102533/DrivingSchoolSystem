@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Student directory')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('students', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>Student directory</h1>
+          <p class="ad-page-sub">Everyone who registered through public sign-up appears here. Search by name or email, then open a profile to update details<span th:if="${isAdmin}"> or remove a record</span>.</p>
+        </header>
+        <p th:if="${msg}" class="ad-msg-ok" th:text="${msg}"></p>
+        <p th:if="${error}" class="ad-msg-err" th:text="${error}"></p>
+        <div class="ad-toolbar">
+          <div class="ad-search">
+            <label for="sd-filter" class="sr-only">Search students</label>
+            <input type="search" id="sd-filter" placeholder="Search by name, email, license…" autocomplete="off"/>
+          </div>
+          <span class="ad-count"><span id="sd-visible" th:text="${#lists.size(students)}">0</span> learners</span>
+        </div>
+        <div class="ad-table-wrap" th:if="${not #lists.isEmpty(students)}">
+          <table class="ad-table" id="sd-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Learner</th><th>Email</th><th>Age</th><th>Type</th><th>License</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="s : ${students}" th:data-row="${#strings.toLowerCase((s.name != null ? s.name : '') + ' ' + (s.email != null ? s.email : '') + ' ' + (s.licenseType != null ? s.licenseType : '') + ' ' + (s.studentType != null ? s.studentType : ''))}">
+                <td><span style="color:var(--rs-muted);font-variant-numeric:tabular-nums;font-size:0.85rem;" th:text="${s.id}">1</span></td>
+                <td><strong th:text="${s.name}">—</strong></td>
+                <td th:text="${s.email != null ? s.email : '—'}">—</td>
+                <td th:text="${s.age}">—</td>
+                <td th:text="${s.studentType != null ? s.studentType : '—'}">—</td>
+                <td th:text="${s.licenseType != null ? s.licenseType : '—'}">—</td>
+                <td style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                  <a class="ad-btn" th:href="@{/manager/admin/students/{id}/edit(id=${s.id})}">Edit</a>
+                  <form th:if="${isAdmin}" th:action="@{/manager/admin/students/{id}/delete(id=${s.id})}" method="post" style="display:inline;margin:0;" onsubmit="return confirm('Remove this student and related progress, lessons, and payments?');">
+                    <button type="submit" class="ad-btn ad-btn-danger">Remove</button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div th:if="${#lists.isEmpty(students)}" style="text-align:center;padding:3rem 1.5rem;color:var(--rs-muted);">
+          <strong style="display:block;color:var(--rs-text);margin-bottom:0.35rem;font-size:1rem;">No learners yet</strong>
+          When students complete sign-up, they will appear here automatically.
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+  </style>
+  <script>
+    (function () {
+      var input = document.getElementById('sd-filter');
+      var table = document.getElementById('sd-table');
+      var countEl = document.getElementById('sd-visible');
+      if (!input || !table) return;
+      var rows = table.querySelectorAll('tbody tr');
+      function run() {
+        var q = (input.value || '').trim().toLowerCase();
+        var n = 0;
+        rows.forEach(function (row) {
+          var hay = row.getAttribute('data-row') || '';
+          var show = !q || hay.indexOf(q) !== -1;
+          row.style.display = show ? '' : 'none';
+          if (show) n++;
+        });
+        if (countEl) countEl.textContent = n;
+      }
+      input.addEventListener('input', run);
+    })();
+  </script>
+</body>
+</html>

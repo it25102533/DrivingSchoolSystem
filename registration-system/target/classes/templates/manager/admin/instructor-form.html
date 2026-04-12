@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Instructor')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('instructors', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1 th:text="${isNew} ? 'Add instructor' : 'Edit instructor'">Instructor</h1>
+        </header>
+        <form class="ad-form" th:action="@{/manager/admin/instructors/save}" method="post">
+          <input type="hidden" name="id" th:if="${!isNew}" th:value="${instructor.id}"/>
+          <label for="name">Name</label>
+          <input id="name" name="name" required th:value="${instructor.name}"/>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" th:value="${instructor.phone}"/>
+          <label for="licenseNumber">License number</label>
+          <input id="licenseNumber" name="licenseNumber" th:value="${instructor.licenseNumber}"/>
+          <label for="specialization">Specialization</label>
+          <input id="specialization" name="specialization" th:value="${instructor.specialization}" placeholder="e.g. Manual, night driving"/>
+          <div class="ad-form-actions">
+            <button type="submit" class="rs-btn rs-btn-primary">Save</button>
+            <a th:href="@{/manager/admin/instructors}" class="rs-btn rs-btn-ghost">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

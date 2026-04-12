@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Logo: also inlined in header (avoid nested fragment resolution issues) -->
+<svg th:fragment="logo" class="rs-brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="rsGradFrag" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#3b82f6"/>
+        <stop offset="1" stop-color="#14b8a6"/>
+      </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="12" fill="url(#rsGradFrag)" opacity="0.15"/>
+    <path d="M14 34c0-6 4-10 10-10s10 4 10 10" stroke="url(#rsGradFrag)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M18 28c2-4 5-6 10-6s8 2 10 6" stroke="url(#rsGradFrag)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="24" cy="16" r="4" fill="url(#rsGradFrag)"/>
+    <path d="M32 12l4 4-4 4" stroke="#e8ecf4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+<header class="rs-header" th:fragment="header (active)">
+  <div class="rs-header-inner">
+    <a class="rs-brand" th:href="@{/}">
+      <svg class="rs-brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="rsGradHeader" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3b82f6"/><stop offset="1" stop-color="#14b8a6"/>
+          </linearGradient>
+        </defs>
+        <rect width="48" height="48" rx="12" fill="url(#rsGradHeader)" opacity="0.15"/>
+        <path d="M14 34c0-6 4-10 10-10s10 4 10 10" stroke="url(#rsGradHeader)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M18 28c2-4 5-6 10-6s8 2 10 6" stroke="url(#rsGradHeader)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        <circle cx="24" cy="16" r="4" fill="url(#rsGradHeader)"/>
+        <path d="M32 12l4 4-4 4" stroke="#e8ecf4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="rs-brand-text">
+        <span class="rs-brand-name">RoadSync</span>
+        <span class="rs-brand-tag">Driving School Platform</span>
+      </div>
+    </a>
+    <nav class="rs-nav">
+      <a th:href="@{/}" th:classappend="${active == 'home'} ? 'active'">Home</a>
+      <a th:href="@{/about}" th:classappend="${active == 'about'} ? 'active'">About Us</a>
+      <a th:href="@{/contact}" th:classappend="${active == 'contact'} ? 'active'">Contact Us</a>
+    </nav>
+    <div class="rs-actions">
+      <div class="rs-dropdown" id="loginDropdown">
+        <div class="rs-dropdown-backdrop" id="loginBackdrop"></div>
+        <button type="button" class="rs-btn rs-btn-ghost" id="loginBtn" aria-expanded="false" aria-haspopup="true">Login</button>
+        <div class="rs-dropdown-panel" role="menu">
+          <a class="rs-dropdown-item" th:href="@{/login/professional}" role="menuitem">
+            Professional login
+            <small>Staff &amp; instructors</small>
+          </a>
+          <a class="rs-dropdown-item" th:href="@{/login}" role="menuitem">
+            Student login
+            <small>Access your lessons &amp; progress</small>
+          </a>
+        </div>
+      </div>
+      <a th:href="@{/signup}" class="rs-btn rs-btn-primary">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<footer class="rs-footer" th:fragment="footer">
+  <div class="rs-footer-inner">
+    <div class="rs-footer-brand">
+      <span class="rs-brand-name">RoadSync</span>
+      <p style="color:var(--rs-muted);font-size:0.9rem;margin:0.5rem 0 0;max-width:280px;">
+        Modern scheduling and training management for driving schools.
+      </p>
+    </div>
+    <div class="rs-footer-col">
+      <h4>Explore</h4>
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/about}">About Us</a>
+      <a th:href="@{/contact}">Contact Us</a>
+    </div>
+    <div class="rs-footer-col">
+      <h4>Account</h4>
+      <a th:href="@{/login}">Student login</a>
+      <a th:href="@{/login/options}">Login menu</a>
+      <a th:href="@{/signup}">Student sign up</a>
+    </div>
+  </div>
+  <div class="rs-footer-bottom">
+    © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> RoadSync. All rights reserved.
+  </div>
+</footer>
+
+<script th:fragment="login-dropdown-script">
+  (function () {
+    var wrap = document.getElementById("loginDropdown");
+    var btn = document.getElementById("loginBtn");
+    var backdrop = document.getElementById("loginBackdrop");
+    if (!wrap || !btn) return;
+    function close() {
+      wrap.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+    function toggle() {
+      wrap.classList.toggle("open");
+      btn.setAttribute("aria-expanded", wrap.classList.contains("open") ? "true" : "false");
+    }
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggle();
+    });
+    if (backdrop) backdrop.addEventListener("click", close);
+    document.addEventListener("click", close);
+    wrap.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+  })();
+</script>
+</body>
+</html>

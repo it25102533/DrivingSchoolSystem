@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Bookings')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('lessons', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <div class="ad-page-toolbar">
+          <header class="ad-page-head" style="margin-bottom:0;">
+            <h1 style="margin:0;">All lesson bookings</h1>
+          </header>
+          <a th:href="@{/bookLesson}" class="rs-btn rs-btn-primary">Book new lesson</a>
+        </div>
+        <p th:if="${msg}" class="ad-msg-ok" th:text="${msg}"></p>
+        <div class="ad-table-wrap" th:if="${not #lists.isEmpty(lessons)}">
+          <table class="ad-table">
+            <thead>
+              <tr>
+                <th>When</th><th>Student</th><th>Instructor</th><th>Vehicle</th><th>Status</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="l : ${lessons}" th:classappend="${l.status == 'Cancelled'} ? ' st-cancelled'">
+                <td th:text="${l.lessonTime != null ? l.lessonTime : '—'}">—</td>
+                <td th:text="${l.student != null ? l.student.name : '—'}">—</td>
+                <td th:text="${l.instructor != null ? l.instructor.name : '—'}">—</td>
+                <td>
+                  <span th:if="${l.vehicle != null}" th:text="${l.vehicle.model + ' (' + l.vehicle.plateNumber + ')'}">—</span>
+                  <span th:if="${l.vehicle == null && l.vehicleType != null}" th:text="${l.vehicleType}">—</span>
+                  <span th:if="${l.vehicle == null && l.vehicleType == null}">—</span>
+                </td>
+                <td th:text="${l.status != null ? l.status : '—'}">—</td>
+                <td style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                  <a class="ad-btn" th:href="@{/manager/admin/lessons/{id}/edit(id=${l.id})}">Reschedule</a>
+                  <form th:if="${l.status != 'Cancelled'}" th:action="@{/manager/admin/lessons/{id}/cancel(id=${l.id})}" method="post" style="display:inline;margin:0;" onsubmit="return confirm('Cancel this lesson?');">
+                    <button type="submit" class="ad-btn ad-btn-danger">Cancel</button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p th:if="${#lists.isEmpty(lessons)}" style="color:var(--rs-muted);margin-top:1rem;">No lessons scheduled.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

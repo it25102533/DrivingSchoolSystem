@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Reports')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('reports', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>System-wide reports</h1>
+          <p class="ad-page-sub">High-level counts and directory snapshots.</p>
+        </header>
+        <div class="ad-dash-stats" style="margin-bottom:1.75rem;">
+          <div class="ad-dash-stat"><div class="num" th:text="${studentCount}">0</div><div class="lbl">Students</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${instructorCount}">0</div><div class="lbl">Instructors</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${vehicleCount}">0</div><div class="lbl">Vehicles</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${lessonCount}">0</div><div class="lbl">Lessons</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${paymentCount}">0</div><div class="lbl">Payments</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${managerCount}">0</div><div class="lbl">Staff</div></div>
+        </div>
+        <p style="margin-bottom:1.25rem;">
+          <a th:href="@{/manager/admin/lessons}" style="color:var(--rs-accent);margin-right:1rem;">Full booking list</a>
+          <a th:href="@{/manager/admin/payments}" style="color:var(--rs-accent);">Payment history</a>
+        </p>
+        <h2 class="ad-h2">Student directory</h2>
+        <div class="ad-table-wrap" style="margin-bottom:2rem;">
+          <table class="ad-table">
+            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr th:each="s : ${students}">
+                <td th:text="${s.id}">1</td>
+                <td th:text="${s.name}">—</td>
+                <td th:text="${s.email != null ? s.email : '—'}">—</td>
+                <td th:text="${s.studentType != null ? s.studentType : '—'}">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 class="ad-h2">Staff accounts</h2>
+        <div class="ad-table-wrap" style="margin-bottom:2rem;">
+          <table class="ad-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr th:each="m : ${managers}">
+                <td th:text="${m.fullName}">—</td>
+                <td th:text="${m.email}">—</td>
+                <td th:text="${m.role}">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 class="ad-h2">Vehicles</h2>
+        <div class="ad-table-wrap">
+          <table class="ad-table">
+            <thead><tr><th>ID</th><th>Model</th><th>Plate</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr th:each="v : ${vehicles}">
+                <td th:text="${v.id}">1</td>
+                <td th:text="${v.model}">—</td>
+                <td th:text="${v.plateNumber}">—</td>
+                <td th:text="${v.type != null ? v.type : '—'}">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

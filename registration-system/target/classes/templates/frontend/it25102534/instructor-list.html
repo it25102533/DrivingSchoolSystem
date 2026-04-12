@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102534/subsystem.css}">
+    <title>Instructor List</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; }
+        nav { background-color: #333; padding: 15px; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .table-container { padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #28a745; color: white; } /* Green theme for Instructors */
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+
+    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+
+    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
+    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+</nav>
+
+<div class="table-container">
+    <h2 style="text-align: center;">Our Instructors</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>License No</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${allInstructors}">
+            <td th:text="${i.id}"></td>
+            <td th:text="${i.name}"></td>
+            <td th:text="${i.licenseNumber}"></td>
+            <td th:text="${i.specialization}"></td>
+            <td th:text="${i.phone}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

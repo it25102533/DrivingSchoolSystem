@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About Us — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('about')}"></header>
+
+  <main class="rs-main">
+    <section class="rs-section" style="padding-top:4rem;">
+      <h2>About RoadSync</h2>
+      <p>
+        RoadSync was built for driving schools that want a calm, dependable way to run day-to-day operations.
+        We focus on clear scheduling, transparent progress for learners, and tools that respect both students and staff.
+      </p>
+      <p>
+        Whether you run a small academy or a multi-location network, RoadSync keeps your training programme organised
+        so instructors can teach and students can focus on the road.
+      </p>
+    </section>
+  </main>
+
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

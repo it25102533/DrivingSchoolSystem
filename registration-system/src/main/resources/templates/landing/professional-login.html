@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Professional Login — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <style>
+    .rs-form-wrap { max-width: 400px; margin: 3rem auto; padding: 0 1rem; }
+    .rs-form-card {
+      background: var(--rs-card);
+      border: 1px solid var(--rs-border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .rs-form-card h1 { margin: 0 0 0.5rem; font-size: 1.35rem; }
+    .rs-form-card p.sub { margin: 0 0 1.5rem; color: var(--rs-muted); font-size: 0.9rem; }
+    .rs-form-card label { display: block; font-size: 0.8rem; color: var(--rs-muted); margin-bottom: 0.35rem; }
+    .rs-form-card input {
+      width: 100%; padding: 0.65rem 0.85rem; margin-bottom: 1rem;
+      border-radius: 10px; border: 1px solid var(--rs-border);
+      background: rgba(0,0,0,0.25); color: var(--rs-text); font-size: 1rem;
+    }
+    .rs-form-card .rs-btn-primary { width: 100%; margin-top: 0.5rem; }
+    .rs-note { margin-top: 1rem; font-size: 0.8rem; color: var(--rs-muted); text-align: center; }
+    .err { color: #f87171; font-size: 0.9rem; margin-bottom: 1rem; text-align: center; }
+    .ok { color: #5eead4; font-size: 0.85rem; margin-bottom: 1rem; text-align: center; }
+  </style>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+
+  <main class="rs-main">
+    <div class="rs-form-wrap">
+      <div class="rs-form-card">
+        <h1>Professional sign in</h1>
+        <p class="sub">Sign in with your manager email and password (verified against the database).</p>
+        <p th:if="${param.loggedOut}" class="ok">You have been signed out.</p>
+        <p th:if="${error}" class="err" th:text="${error}">Error</p>
+        <form th:action="@{/login/professional}" method="post">
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" required autocomplete="username" placeholder="e.g. admin@gmail.com"/>
+          <label for="password">Password</label>
+          <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="••••••••"/>
+          <button type="submit" class="rs-btn rs-btn-primary">Sign in</button>
+        </form>
+        <p class="rs-note">
+          <a th:href="@{/login}" style="color:var(--rs-accent);">Student login</a>
+          &nbsp;·&nbsp;
+          <a th:href="@{/}" style="color:var(--rs-muted);">Back to home</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

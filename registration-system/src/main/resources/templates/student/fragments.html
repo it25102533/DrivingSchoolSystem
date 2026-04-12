@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <nav class="student-nav" th:fragment="nav (active)">
+    <a th:href="@{/student/dashboard}" th:classappend="${active == 'dash'} ? 'active'">Dashboard</a>
+    <a th:href="@{/student/profile}" th:classappend="${active == 'profile'} ? 'active'">Profile</a>
+    <a th:href="@{/student/book-lesson}" th:classappend="${active == 'book'} ? 'active'">Book lesson</a>
+    <a th:href="@{/student/my-lessons}" th:classappend="${active == 'lessons'} ? 'active'">My lessons</a>
+    <a th:href="@{/student/packages}" th:classappend="${active == 'packages'} ? 'active'">Packages</a>
+    <a th:href="@{/student/payment-history}" th:classappend="${active == 'pay'} ? 'active'">Payments</a>
+    <a th:href="@{/student/progress}" th:classappend="${active == 'progress'} ? 'active'">Progress</a>
+    <a th:href="@{/student/feedback}" th:classappend="${active == 'feedback'} ? 'active'">Feedback</a>
+    <a th:href="@{/logout}" style="margin-left:auto;color:var(--rs-muted);">Log out</a>
+  </nav>
+</body>
+</html>

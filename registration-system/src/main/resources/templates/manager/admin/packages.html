@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Packages')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('packages', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>Lesson packages &amp; pricing</h1>
+        </header>
+        <p th:if="${msg}" class="ad-msg-ok" th:text="${msg}"></p>
+        <p th:if="${error}" class="ad-msg-err" th:text="${error}"></p>
+        <div class="ad-card-panel" th:each="p : ${packages}">
+          <h3 style="margin:0 0 0.75rem;font-size:1rem;color:var(--rs-teal);" th:text="'Package #' + ${p.id}">Package</h3>
+          <form th:action="@{/manager/admin/packages/save}" method="post">
+            <input type="hidden" name="id" th:value="${p.id}"/>
+            <div class="ad-pkg-row">
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;">Name</label>
+                <input name="packageName" required th:value="${p.packageName}" style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;"># Lessons</label>
+                <input name="numberOfLessons" type="number" min="1" required th:value="${p.numberOfLessons}" style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;">Base price</label>
+                <input name="basePrice" type="number" step="0.01" min="0" required th:value="${p.basePrice}" style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div style="display:flex;align-items:flex-end;">
+                <button type="submit" class="rs-btn rs-btn-primary" style="padding:0.45rem 0.85rem;">Save</button>
+              </div>
+            </div>
+          </form>
+          <form th:action="@{/manager/admin/packages/{id}/delete(id=${p.id})}" method="post" style="margin-top:0.75rem;" onsubmit="return confirm('Delete this package? Only if no payments reference it.');">
+            <button type="submit" class="ad-btn ad-btn-danger">Delete package</button>
+          </form>
+        </div>
+        <div class="ad-card-panel ad-pkg-new">
+          <h3 style="margin:0 0 0.75rem;font-size:1rem;color:var(--rs-teal);">New package</h3>
+          <form th:action="@{/manager/admin/packages/save}" method="post">
+            <div class="ad-pkg-row">
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;">Name</label>
+                <input name="packageName" required placeholder="e.g. 10-lesson bundle" style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;"># Lessons</label>
+                <input name="numberOfLessons" type="number" min="1" value="10" required style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.78rem;color:var(--rs-muted);margin-bottom:0.25rem;">Base price</label>
+                <input name="basePrice" type="number" step="0.01" min="0" value="0" required style="width:100%;padding:0.55rem;border-radius:10px;border:1px solid var(--rs-border);background:rgba(0,0,0,0.25);color:var(--rs-text);box-sizing:border-box;"/>
+              </div>
+              <div style="display:flex;align-items:flex-end;">
+                <button type="submit" class="rs-btn rs-btn-primary">Create</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

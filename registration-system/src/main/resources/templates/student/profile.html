@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>My profile — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('profile')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Profile &amp; account</h1>
+    <p th:if="${param.saved}" class="sp-alert ok">Profile saved.</p>
+    <p th:if="${param.pwd}" class="sp-alert ok">Password updated.</p>
+    <p th:if="${error}" class="sp-alert err" th:text="${error}">Error</p>
+    <section style="margin-bottom:2rem;">
+      <h2 style="font-size:1.05rem;margin-bottom:0.75rem;">Contact details</h2>
+      <form th:action="@{/student/profile}" method="post" class="sp-form">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" required th:value="${student.name}"/>
+        <label for="email">Email (login)</label>
+        <input id="email" type="email" th:value="${student.email}" disabled style="opacity:0.75"/>
+        <p style="font-size:0.8rem;color:var(--rs-muted);margin:0 0 0.5rem;">Email cannot be changed here. Contact support if needed.</p>
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="text" th:value="${student.phone}"/>
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="2" th:text="${student.address != null ? student.address : ''}"></textarea>
+        <label for="age">Age</label>
+        <input id="age" name="age" type="number" required th:value="${student.age}"/>
+        <label for="licenseType">License type goal</label>
+        <input id="licenseType" name="licenseType" type="text" th:value="${student.licenseType}"/>
+        <label for="studentType">Student type</label>
+        <select id="studentType" name="studentType">
+          <option value="Individual" th:selected="${student.studentType == 'Individual'}">Individual</option>
+          <option value="Corporate" th:selected="${student.studentType == 'Corporate'}">Corporate</option>
+        </select>
+        <button type="submit" class="sp-btn" style="margin-top:1rem;">Save profile</button>
+      </form>
+    </section>
+    <section>
+      <h2 style="font-size:1.05rem;margin-bottom:0.75rem;">Change password</h2>
+      <form th:action="@{/student/profile/password}" method="post" class="sp-form">
+        <label for="currentPassword">Current password</label>
+        <input id="currentPassword" name="currentPassword" type="password" required autocomplete="current-password"/>
+        <label for="newPassword">New password</label>
+        <input id="newPassword" name="newPassword" type="password" required minlength="6" autocomplete="new-password"/>
+        <label for="confirmPassword">Confirm new password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required minlength="6" autocomplete="new-password"/>
+        <button type="submit" class="sp-btn" style="margin-top:1rem;">Update password</button>
+      </form>
+    </section>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

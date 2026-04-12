@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102537/subsystem.css}">
+  <title>Payment History</title>
+  <style>
+    body { font-family: Arial; margin: 0; background: #1a1a1a; color: #eee; }
+    .wrap { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    table { width: 100%; border-collapse: collapse; background: #242424; }
+    th, td { border: 1px solid #444; padding: 12px; text-align: left; }
+    th { background: #333; }
+    .ok { color: #28a745; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+<nav style="background-color: #333; padding: 15px; text-align: center;">
+  <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+  <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+  <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+  <a href="/payment-history" style="color: #ffc107; margin: 0 10px; text-decoration: none;">Payments</a>
+</nav>
+<div class="wrap">
+  <h2>Payment History</h2>
+  <p th:if="${param.success}" class="ok">Payment recorded successfully.</p>
+  <table>
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Student</th>
+      <th>Package</th>
+      <th>Amount paid</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${payments}">
+      <td th:text="${#temporals.format(p.paymentDate, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${p.student.name}"></td>
+      <td th:text="${p.lessonPackage.packageName}"></td>
+      <td th:text="${#numbers.formatDecimal(p.amountPaid, 1, 2)}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

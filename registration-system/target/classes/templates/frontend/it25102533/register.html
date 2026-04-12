@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102533/subsystem.css}">
+    <title>Driving School Registration</title>
+    <style>
+        body { font-family: Arial; margin: 50px; line-height: 1.6; }
+        .success { color: green; font-weight: bold; }
+        input { display: block; margin-bottom: 10px; width: 300px; padding: 8px; }
+    </style>
+</head>
+<body>
+<h2>New Student Registration</h2>
+
+<div th:if="${param.success}" class="success">
+    Student Registered Successfully!
+</div>
+
+<form th:action="@{/saveStudent}" th:object="${student}" method="post">
+    <label>Full Name:</label>
+    <input type="text" th:field="*{name}" required>
+
+    <label>Age:</label>
+    <input type="number" th:field="*{age}" required>
+
+    <label>License Type:</label>
+    <input type="text" th:field="*{licenseType}" placeholder="e.g., Light Vehicle" required>
+
+    <label>Phone:</label>
+    <input type="text" th:field="*{phone}" required>
+
+    <button type="submit">Submit Registration</button>
+</form>
+</body>
+</html>

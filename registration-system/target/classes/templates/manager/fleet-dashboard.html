@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Fleet dashboard')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('dashboard', ${managerRole})}"></aside>
+
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <div class="ad-dash-hero">
+          <div class="ad-dash-hero-inner">
+            <div>
+              <p class="ad-kicker">Fleet</p>
+              <h1 th:text="'Hello, ' + ${manager.fullName}">Hello</h1>
+              <p class="ad-meta" th:if="${manager.email != null}">
+                Signed in as <strong th:text="${manager.email}">email</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-dash-stats">
+          <div class="ad-dash-stat"><div class="num" th:text="${vehicleCount}">0</div><div class="lbl">Vehicles</div></div>
+          <div class="ad-dash-stat"><div class="num" th:text="${lessonCount}">0</div><div class="lbl">Lessons</div></div>
+        </div>
+
+        <div class="ad-dash-grid">
+          <a class="ad-dash-card c1" th:href="@{/vehicles}"><span class="icon">&#128663;</span><span class="t">Fleet directory</span><span class="d">All vehicles</span></a>
+          <a class="ad-dash-card c2" th:href="@{/addVehicle}"><span class="icon">&#10133;</span><span class="t">Add vehicle</span><span class="d">Register a vehicle</span></a>
+          <a class="ad-dash-card c3" th:href="@{/lessons}"><span class="icon">&#128197;</span><span class="t">Lesson schedule</span><span class="d">Usage overview</span></a>
+        </div>
+
+        <div class="ad-page-foot">
+          <a th:href="@{/}">← Public home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

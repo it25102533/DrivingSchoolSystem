@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Payments')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('payments', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>All student payments</h1>
+          <p class="ad-page-sub">Complete payment history across every learner.</p>
+        </header>
+        <div class="ad-table-wrap" th:if="${not #lists.isEmpty(payments)}">
+          <table class="ad-table">
+            <thead>
+              <tr><th>ID</th><th>When</th><th>Student</th><th>Package</th><th>Amount paid</th></tr>
+            </thead>
+            <tbody>
+              <tr th:each="pay : ${payments}">
+                <td th:text="${pay.id}">1</td>
+                <td th:text="${pay.paymentDate != null ? pay.paymentDate : '—'}">—</td>
+                <td th:text="${pay.student != null ? pay.student.name : '—'}">—</td>
+                <td th:text="${pay.lessonPackage != null ? pay.lessonPackage.packageName : '—'}">—</td>
+                <td th:text="${#numbers.formatDecimal(pay.amountPaid, 1, 2)}">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p th:if="${#lists.isEmpty(payments)}" style="color:var(--rs-muted);margin-top:1rem;">No payments recorded.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

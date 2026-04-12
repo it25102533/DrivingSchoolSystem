@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Payment history — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('pay')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Payment history</h1>
+    <p th:if="${param.success}" class="sp-alert ok">Payment recorded successfully.</p>
+    <table class="sp-table" th:if="${not #lists.isEmpty(payments)}">
+      <thead>
+        <tr><th>Date</th><th>Package</th><th>Amount paid</th></tr>
+      </thead>
+      <tbody>
+        <tr th:each="pay : ${payments}">
+          <td th:text="${pay.paymentDate != null ? #temporals.format(pay.paymentDate, 'dd MMM yyyy HH:mm') : '—'}">—</td>
+          <td th:text="${pay.lessonPackage != null ? pay.lessonPackage.packageName : '—'}">—</td>
+          <td th:text="${#numbers.formatDecimal(pay.amountPaid, 1, 2)}">0</td>
+        </tr>
+      </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(payments)}" style="color:var(--rs-muted);">No payments yet.</p>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

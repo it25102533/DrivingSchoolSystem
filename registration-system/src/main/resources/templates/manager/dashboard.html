@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Dashboard')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('dashboard', ${managerRole})}"></aside>
+
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <div class="ad-dash-hero">
+          <div class="ad-dash-hero-inner">
+            <div>
+              <p class="ad-kicker">Control centre</p>
+              <h1 th:text="'Hello, ' + ${manager.fullName}">Hello</h1>
+              <p class="ad-meta" th:if="${manager.email != null}">
+                Signed in as <strong th:text="${manager.email}">email</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p th:if="${accessDenied}" class="ad-alert">That action is not available for your role.</p>
+
+        <th:block th:if="${managerRole == 'ADMIN'}">
+          <div class="ad-dash-stats">
+            <div class="ad-dash-stat"><div class="num" th:text="${studentCount}">0</div><div class="lbl">Students</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${instructorCount}">0</div><div class="lbl">Instructors</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${vehicleCount}">0</div><div class="lbl">Vehicles</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${lessonCount}">0</div><div class="lbl">Lessons</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${paymentCount}">0</div><div class="lbl">Payments</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${courseFeedbackCount + instructorFeedbackCount}">0</div><div class="lbl">Feedback</div></div>
+          </div>
+          <div class="ad-dash-grid">
+            <a class="ad-dash-card c1" th:href="@{/manager/admin/students}"><span class="icon">&#128203;</span><span class="t">Student directory</span><span class="d">Browse and update learner records</span></a>
+            <a class="ad-dash-card c2" th:href="@{/manager/admin/instructors}"><span class="icon">&#128104;</span><span class="t">Instructors</span><span class="d">Manage instructor profiles</span></a>
+            <a class="ad-dash-card c3" th:href="@{/manager/admin/lessons}"><span class="icon">&#128197;</span><span class="t">Bookings</span><span class="d">Reschedule or cancel lessons</span></a>
+            <a class="ad-dash-card c4" th:href="@{/manager/admin/packages}"><span class="icon">&#128176;</span><span class="t">Packages</span><span class="d">Pricing and bundles</span></a>
+            <a class="ad-dash-card c5" th:href="@{/manager/admin/payments}"><span class="icon">&#128202;</span><span class="t">Payments</span><span class="d">Full payment history</span></a>
+            <a class="ad-dash-card c6" th:href="@{/manager/feedback}"><span class="icon">&#128172;</span><span class="t">Feedback</span><span class="d">Moderation</span></a>
+            <a class="ad-dash-card c7" th:href="@{/manager/admin/reports}"><span class="icon">&#128200;</span><span class="t">Reports</span><span class="d">System overview</span></a>
+            <a class="ad-dash-card c2" th:href="@{/vehicles}"><span class="icon">&#128663;</span><span class="t">Vehicles</span><span class="d">Fleet</span></a>
+          </div>
+        </th:block>
+
+        <th:block th:if="${managerRole == 'OPERATIONS_LEAD'}">
+          <div class="ad-dash-stats">
+            <div class="ad-dash-stat"><div class="num" th:text="${lessonCount}">0</div><div class="lbl">Lessons</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${instructorCount}">0</div><div class="lbl">Instructors</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${studentCount}">0</div><div class="lbl">Students</div></div>
+            <div class="ad-dash-stat"><div class="num" th:text="${progressNoteCount}">0</div><div class="lbl">Progress</div></div>
+          </div>
+          <div class="ad-dash-grid">
+            <a class="ad-dash-card c1" th:href="@{/manager/admin/lessons}"><span class="icon">&#128197;</span><span class="t">Bookings</span><span class="d">Schedule and update</span></a>
+            <a class="ad-dash-card c2" th:href="@{/bookLesson}"><span class="icon">&#10133;</span><span class="t">Book lesson</span><span class="d">New booking</span></a>
+            <a class="ad-dash-card c3" th:href="@{/manager/admin/instructors}"><span class="icon">&#128104;</span><span class="t">Instructors</span><span class="d">Profiles</span></a>
+            <a class="ad-dash-card c4" th:href="@{/manager/admin/students}"><span class="icon">&#128203;</span><span class="t">Student directory</span><span class="d">Learner records</span></a>
+            <a class="ad-dash-card c5" th:href="@{/vehicles}"><span class="icon">&#128663;</span><span class="t">Vehicles</span><span class="d">Read-only</span></a>
+            <a class="ad-dash-card c6" th:href="@{/addProgress}"><span class="icon">&#128221;</span><span class="t">Progress notes</span><span class="d">Log notes</span></a>
+          </div>
+        </th:block>
+
+        <div class="ad-page-foot">
+          <a th:href="@{/}">← Public home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

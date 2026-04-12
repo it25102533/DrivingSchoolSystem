@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Reschedule lesson')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('lessons', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>Reschedule / update lesson</h1>
+        </header>
+        <p th:if="${error}" class="ad-msg-err" th:text="${error}"></p>
+        <form class="ad-form" th:action="@{/manager/admin/lessons/save}" method="post">
+          <input type="hidden" name="id" th:value="${lesson.id}"/>
+          <label for="lessonTime">Date &amp; time</label>
+          <input id="lessonTime" name="lessonTime" type="datetime-local" required
+                 th:value="${lesson.lessonTime != null ? #strings.substring(lesson.lessonTime.toString(), 0, 16) : ''}"/>
+          <label for="studentId">Student</label>
+          <select id="studentId" name="studentId" required>
+            <option th:each="s : ${students}" th:value="${s.id}" th:selected="${lesson.student != null and lesson.student.id == s.id}" th:text="${s.name}"></option>
+          </select>
+          <label for="instructorId">Instructor</label>
+          <select id="instructorId" name="instructorId" required>
+            <option th:each="ins : ${instructors}" th:value="${ins.id}" th:selected="${lesson.instructor != null and lesson.instructor.id == ins.id}" th:text="${ins.name}"></option>
+          </select>
+          <label for="vehicleId">Vehicle (optional)</label>
+          <select id="vehicleId" name="vehicleId">
+            <option value="">— None —</option>
+            <option th:each="v : ${vehicles}" th:value="${v.id}" th:selected="${lesson.vehicle != null and lesson.vehicle.id == v.id}"
+                    th:text="${v.model + ' · ' + v.plateNumber}"></option>
+          </select>
+          <label for="vehicleType">Transmission preference</label>
+          <select id="vehicleType" name="vehicleType">
+            <option value="">—</option>
+            <option value="Manual" th:selected="${lesson.vehicleType == 'Manual'}">Manual</option>
+            <option value="Automatic" th:selected="${lesson.vehicleType == 'Automatic'}">Automatic</option>
+            <option value="Any" th:selected="${lesson.vehicleType == 'Any'}">Any</option>
+          </select>
+          <label for="status">Status</label>
+          <select id="status" name="status" required>
+            <option value="Scheduled" th:selected="${lesson.status == 'Scheduled'}">Scheduled</option>
+            <option value="Completed" th:selected="${lesson.status == 'Completed'}">Completed</option>
+            <option value="Cancelled" th:selected="${lesson.status == 'Cancelled'}">Cancelled</option>
+          </select>
+          <div class="ad-form-actions">
+            <button type="submit" class="rs-btn rs-btn-primary">Save</button>
+            <a th:href="@{/manager/admin/lessons}" class="rs-btn rs-btn-ghost">Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

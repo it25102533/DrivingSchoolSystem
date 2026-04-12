@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Instructors')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('instructors', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <div class="ad-page-toolbar">
+          <header class="ad-page-head" style="margin-bottom:0;">
+            <h1 style="margin:0;">Instructors</h1>
+          </header>
+          <a th:href="@{/manager/admin/instructors/new}" class="rs-btn rs-btn-primary">Add instructor</a>
+        </div>
+        <p th:if="${msg}" class="ad-msg-ok" th:text="${msg}"></p>
+        <p th:if="${error}" class="ad-msg-err" th:text="${error}"></p>
+        <div class="ad-table-wrap" th:if="${not #lists.isEmpty(instructors)}">
+          <table class="ad-table">
+            <thead>
+              <tr><th>ID</th><th>Name</th><th>Phone</th><th>License #</th><th>Specialization</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr th:each="i : ${instructors}">
+                <td th:text="${i.id}">1</td>
+                <td th:text="${i.name}">—</td>
+                <td th:text="${i.phone != null ? i.phone : '—'}">—</td>
+                <td th:text="${i.licenseNumber != null ? i.licenseNumber : '—'}">—</td>
+                <td th:text="${i.specialization != null ? i.specialization : '—'}">—</td>
+                <td style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                  <a class="ad-btn" th:href="@{/manager/admin/instructors/{id}/edit(id=${i.id})}">Edit</a>
+                  <form th:action="@{/manager/admin/instructors/{id}/delete(id=${i.id})}" method="post" style="display:inline;margin:0;" onsubmit="return confirm('Remove this instructor?');">
+                    <button type="submit" class="ad-btn ad-btn-danger">Remove</button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p th:if="${#lists.isEmpty(instructors)}" style="color:var(--rs-muted);margin-top:1rem;">No instructors yet.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

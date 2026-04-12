@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Feedback — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('feedback')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Submit feedback</h1>
+    <p th:if="${param.sent == 'instructor'}" class="sp-alert ok">Thanks — instructor feedback saved.</p>
+    <p th:if="${param.sent == 'course'}" class="sp-alert ok">Thanks — course feedback saved.</p>
+    <section style="margin-bottom:2rem;">
+      <h2 style="font-size:1.05rem;margin-bottom:0.75rem;">Rate an instructor</h2>
+      <form th:action="@{/student/feedback/instructor}" method="post" class="sp-form">
+        <label for="instructorId">Instructor</label>
+        <select id="instructorId" name="instructorId" required>
+          <option value="">— Select —</option>
+          <option th:each="i : ${instructors}" th:value="${i.id}" th:text="${i.name}">Name</option>
+        </select>
+        <label for="irating">Rating (1–5)</label>
+        <input id="irating" name="rating" type="number" min="1" max="5" value="5" required/>
+        <label for="icomments">Comments</label>
+        <textarea id="icomments" name="comments" rows="3" placeholder="Teaching quality, punctuality…"></textarea>
+        <button type="submit" class="sp-btn" style="margin-top:0.75rem;">Submit instructor feedback</button>
+      </form>
+    </section>
+    <section>
+      <h2 style="font-size:1.05rem;margin-bottom:0.75rem;">Course / lesson feedback</h2>
+      <form th:action="@{/student/feedback/course}" method="post" class="sp-form">
+        <label for="courseName">Course or topic name</label>
+        <input id="courseName" name="courseName" type="text" required placeholder="e.g. City driving module"/>
+        <label for="crating">Rating (1–5)</label>
+        <input id="crating" name="rating" type="number" min="1" max="5" value="5" required/>
+        <label for="ccomments">Comments</label>
+        <textarea id="ccomments" name="comments" rows="3"></textarea>
+        <button type="submit" class="sp-btn" style="margin-top:0.75rem;">Submit course feedback</button>
+      </form>
+    </section>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>

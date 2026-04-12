@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="ad-html">
+<head th:replace="~{manager/fragments/admin-layout :: head('Edit student')}"></head>
+<body class="ad-body">
+  <div class="ad-app">
+    <aside th:replace="~{manager/fragments/sidebar-unified :: sidebar('students', ${managerRole})}"></aside>
+    <div class="ad-main">
+      <div class="ad-main-inner">
+        <header class="ad-page-head">
+          <h1>Edit learner</h1>
+          <p class="ad-page-sub">Update profile details or set a new password. New accounts are created only through the public sign-up page.</p>
+        </header>
+        <p th:if="${error}" class="ad-msg-err" th:text="${error}"></p>
+        <form class="ad-form" th:action="@{/manager/admin/students/save}" method="post">
+          <input type="hidden" name="id" th:value="${student.id}"/>
+          <label for="name">Full name</label>
+          <input id="name" name="name" required th:value="${student.name}"/>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" th:value="${student.email}"/>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" th:value="${student.phone}"/>
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" required min="16" max="120" th:value="${student.age}"/>
+          <label for="address">Address</label>
+          <textarea id="address" name="address" rows="2" th:text="${student.address}"></textarea>
+          <label for="licenseType">License type</label>
+          <input id="licenseType" name="licenseType" th:value="${student.licenseType}" placeholder="e.g. B, A"/>
+          <label for="studentType">Student type</label>
+          <select id="studentType" name="studentType">
+            <option value="Individual" th:selected="${student.studentType == null or student.studentType == 'Individual'}">Individual</option>
+            <option value="Corporate" th:selected="${student.studentType == 'Corporate'}">Corporate</option>
+          </select>
+          <label for="newPassword">New password <span style="color:var(--rs-muted);font-weight:400">(optional)</span></label>
+          <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" placeholder="Leave blank to keep current"/>
+          <div class="ad-form-actions">
+            <button type="submit" class="rs-btn rs-btn-primary">Save changes</button>
+            <a th:href="@{/manager/admin/students}" class="rs-btn rs-btn-ghost">Back to directory</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

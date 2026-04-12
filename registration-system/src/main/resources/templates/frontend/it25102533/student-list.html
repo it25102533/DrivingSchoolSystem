@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/frontend/it25102533/subsystem.css}">
+    <title>Student List</title>
+    <style>
+        /* This removes the white space at the edges */
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Full-width navigation */
+        nav {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Container to give the table some breathing room from the edges */
+        .table-container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Styling for the Action buttons */
+        .delete-btn {
+            color: #dc3545;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .edit-btn {
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .report-btn {
+            color: #17a2b8;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 10px;
+            border: 1px solid #17a2b8;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .report-btn:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+
+    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+
+    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
+    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+</nav>
+
+<div class="table-container">
+    <h2 style="text-align: center;">Driving School Students</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>License Type</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${allStudents}">
+            <td th:text="${s.id}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.age}"></td>
+            <td th:text="${s.licenseType}"></td>
+            <td th:text="${s.phone}"></td>
+            <td>
+                <a th:href="@{'/studentReport/' + ${s.id}}" class="report-btn">
+                    Report
+                </a>
+
+                <a th:href="@{/editStudent(id=${s.id})}" class="edit-btn">
+                    Edit
+                </a>
+
+                <a th:href="@{/deleteStudent(id=${s.id})}"
+                   onclick="confirm('Delete this student?')"
+                   class="delete-btn">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/register" style="text-decoration: none; color: #007bff; font-weight: bold;">+ Register New Student</a>
+    </div>
+</div>
+
+</body>
+</html>

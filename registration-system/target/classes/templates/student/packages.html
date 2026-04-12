@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Lesson packages — RoadSync</title>
+  <link rel="stylesheet" th:href="@{/css/roadsync.css}"/>
+  <link rel="stylesheet" th:href="@{/css/student-portal.css}"/>
+</head>
+<body class="rs-landing">
+  <header th:replace="~{fragments/roadsync :: header('other')}"></header>
+  <main class="rs-main student-shell">
+    <nav th:replace="~{student/fragments :: nav('packages')}"></nav>
+    <h1 style="margin:0 0 1rem;font-size:1.35rem;">Lesson packages</h1>
+    <p style="color:var(--rs-muted);font-size:0.9rem;margin-bottom:1rem;">Select a package to purchase. Pricing includes your student discount where applicable.</p>
+    <table class="sp-table">
+      <thead>
+        <tr><th>Package</th><th>Lessons</th><th>Base price</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr th:each="p : ${packages}">
+          <td th:text="${p.packageName}">—</td>
+          <td th:text="${p.numberOfLessons}">0</td>
+          <td th:text="${#numbers.formatDecimal(p.basePrice, 1, 2)}">0</td>
+          <td>
+            <form th:action="@{/student/purchase}" method="post" style="margin:0;">
+              <input type="hidden" name="packageId" th:value="${p.id}"/>
+              <button type="submit" class="sp-btn sp-btn-sm">Purchase</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <footer th:replace="~{fragments/roadsync :: footer}"></footer>
+  <script th:replace="~{fragments/roadsync :: login-dropdown-script}"></script>
+</body>
+</html>
