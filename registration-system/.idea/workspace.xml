@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c47c0cc-e62b-44dd-81e6-32a63ca57c31" name="Changes" comment="Error fixing">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/DrivingSchoolSystemApplication.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4c47c0cc-e62b-44dd-81e6-32a63ca57c31" name="Changes" comment="Errors" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="IT25102533" />
+        <entry key="$PROJECT_DIR$/.." value="main" />
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
@@ -78,9 +74,9 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHELLCHECK.PATH": "C:\\Users\\WW\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe",
-    "Spring Boot.DrivingSchoolSystemApplication.executor": "Debug",
+    "Spring Boot.DrivingSchoolSystemApplication.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "IT25102533",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/WW/OneDrive - Sri Lanka Institute of Information Technology/Desktop/DrivingSchoolSystem/registration-system",
@@ -212,6 +208,7 @@
     <MESSAGE value="Shared File D2" />
     <MESSAGE value="Shared File D3" />
     <MESSAGE value="Error fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Error fixing" />
+    <MESSAGE value="Errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Errors" />
   </component>
 </project>
