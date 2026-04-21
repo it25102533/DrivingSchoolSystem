@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="true" name="DrivingSchoolSystemApplication" type="Application" factoryName="Application">
+  <configuration default="true" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.drivingschool.system.DrivingSchoolSystemApplication" />
     <module name="registration-system" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
