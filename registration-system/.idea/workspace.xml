@@ -21,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="IT25102533" />
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
@@ -76,7 +76,7 @@
     "SHELLCHECK.PATH": "C:\\Users\\WW\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe",
     "Spring Boot.DrivingSchoolSystemApplication.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "IT25102533",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/WW/OneDrive - Sri Lanka Institute of Information Technology/Desktop/DrivingSchoolSystem/registration-system",
@@ -209,6 +209,7 @@
     <MESSAGE value="Shared File D3" />
     <MESSAGE value="Error fixing" />
     <MESSAGE value="Errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Errors" />
+    <MESSAGE value="New Login Method using ID and displayed the StudentID next to the name" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Login Method using ID and displayed the StudentID next to the name" />
   </component>
 </project>
