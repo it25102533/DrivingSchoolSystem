@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <link rel="stylesheet" th:href="@{/frontend/it25102533/subsystem.css}">
     <title>Student List</title>
@@ -36,10 +37,11 @@
             border-collapse: collapse;
             margin-top: 20px;
             background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
@@ -84,68 +86,78 @@
         }
     </style>
 </head>
+
 <body>
 
-<nav style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
-    <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
-    <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
-    <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
-    <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
-    <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
-    <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
+    <nav
+        style="background-color: #333; padding: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+        <a href="/register" style="color: white; margin: 0 10px; text-decoration: none;">Register</a>
+        <a href="/students" style="color: white; margin: 0 10px; text-decoration: none;">Students</a>
+        <a href="/instructors" style="color: white; margin: 0 10px; text-decoration: none;">Instructors</a>
+        <a href="/vehicles" style="color: white; margin: 0 10px; text-decoration: none;">Vehicles</a>
+        <a href="/lessons" style="color: white; margin: 0 10px; text-decoration: none;">Schedule</a>
+        <a href="/packages" style="color: white; margin: 0 10px; text-decoration: none;">Packages</a>
 
-    <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book Lesson</a>
+        <a href="/bookLesson" style="color: #28a745; margin: 0 10px; text-decoration: none; font-weight: bold;">+ Book
+            Lesson</a>
 
-    <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
-    <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
-    <a href="/login" style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student Login</a>
-    <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
-    <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
-</nav>
+        <span style="border-left: 1px solid #555; margin: 0 15px; padding-left: 15px;"></span>
+        <a href="/my-progress" style="color: #007bff; margin: 0 10px; text-decoration: none;">My Progress</a>
+        <a href="/login"
+            style="color: #ffc107; margin: 0 10px; text-decoration: none; font-weight: bold; border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px;">Student
+            Login</a>
+        <a href="/logout" style="color: #dc3545; margin: 0 10px; text-decoration: none; font-size: 0.9em;">Logout</a>
+        <a href="/addProgress" style="color: white; margin: 0 10px; text-decoration: none;">+ Log Progress</a>
+    </nav>
 
-<div class="table-container">
-    <h2 style="text-align: center;">Driving School Students</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>License Type</th>
-            <th>Phone</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="s : ${allStudents}">
-            <td th:text="${s.id}"></td>
-            <td th:text="${s.name}"></td>
-            <td th:text="${s.age}"></td>
-            <td th:text="${s.licenseType}"></td>
-            <td th:text="${s.phone}"></td>
-            <td>
-                <a th:href="@{'/studentReport/' + ${s.id}}" class="report-btn">
-                    Report
-                </a>
+    <div class="table-container">
+        <h2 style="text-align: center;">Driving School Students</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>License Type</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="s : ${allStudents}">
+                    <td th:text="${s.id}"></td>
+                    <td th:text="${s.name}"></td>
+                    <td th:text="${s.email}"></td>
+                    <td th:text="${s.age}"></td>
+                    <td th:text="${s.licenseType}"></td>
+                    <td th:text="${s.phone}"></td>
+                    <td th:text="${s.address}"></td>
+                    <td>
+                        <a th:href="@{'/studentReport/' + ${s.id}}" class="report-btn">
+                            Report
+                        </a>
 
-                <a th:href="@{/editStudent(id=${s.id})}" class="edit-btn">
-                    Edit
-                </a>
+                        <a th:href="@{/editStudent(id=${s.id})}" class="edit-btn">
+                            Edit
+                        </a>
 
-                <a th:href="@{/deleteStudent(id=${s.id})}"
-                   onclick="confirm('Delete this student?')"
-                   class="delete-btn">
-                    Delete
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                        <a th:href="@{/deleteStudent(id=${s.id})}" onclick="confirm('Delete this student?')"
+                            class="delete-btn">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="/register" style="text-decoration: none; color: #007bff; font-weight: bold;">+ Register New Student</a>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/register" style="text-decoration: none; color: #007bff; font-weight: bold;">+ Register New
+                Student</a>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

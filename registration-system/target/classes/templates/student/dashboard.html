@@ -13,6 +13,7 @@
     <nav th:replace="~{student/fragments :: nav('dash')}"></nav>
     <div class="student-hero">
       <h1>Hi, <span th:text="${student.name}">Student</span></h1>
+      <p style="font-weight: bold; color: #007bff; margin-top: -5px; margin-bottom: 15px;">Your Student ID is: <span th:text="${student.id}"></span></p>
       <p>Welcome to your RoadSync student dashboard. Upcoming lessons: <strong th:text="${upcomingCount}">0</strong></p>
     </div>
     <div class="student-grid">
